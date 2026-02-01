@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Overview • Movie & Series Tracker</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            border-radius: 0.9rem;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.6);
+        }
+
+        .stat-title {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="#">Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="nav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="watchlist.html">Watchlist</a></li>
+                    <li class="nav-item"><a class="nav-link" href="addMovie.html">Add New</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="py-4 mb-4 bg-primary bg-gradient text-white">
+        <div class="container">
+
+            <h1 class="h3 mb-1">Overview</h1>
+            <p class="mb-0 text-light">Summary of all movies and series saved in your browser.</p>
+        </div>
+    </header>
+
+    <main class="container mb-5 text-light">
+
+        <!-- STATS CARDS -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-3">
+                    <div class="stat-title text-secondary">Total Items</div>
+                    <p class="display-6 mb-0" id="statTotal">0</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-3">
+                    <div class="stat-title text-secondary">Movies</div>
+                    <p class="display-6 mb-0" id="statMovies">0</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-3">
+                    <div class="stat-title text-secondary">Series</div>
+                    <p class="display-6 mb-0" id="statSeries">0</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="glass-card text-center p-3">
+                    <div class="stat-title text-secondary">Avg Rating</div>
+                    <p class="display-6 mb-0" id="statRating">0.0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATUS COUNTS -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Planned</h6>
+                        <span class="badge bg-secondary">Planned</span>
+                    </div>
+                    <p class="fs-4 mb-0" id="statPlanned">0</p>
+                    <small class="text-secondary">Not started yet.</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Watching</h6>
+                        <span class="badge bg-warning text-dark">In progress</span>
+                    </div>
+                    <p class="fs-4 mb-0" id="statWatching">0</p>
+                    <small class="text-secondary">Currently in progress.</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Watched</h6>
+                        <span class="badge bg-success">Completed</span>
+                    </div>
+                    <p class="fs-4 mb-0" id="statWatched">0</p>
+                    <small class="text-secondary">Completed items.</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECENT ITEMS -->
+        <div class="glass-card mb-4">
+            <div class="d-flex justify-content-between align-items-center border-bottom border-secondary px-3 py-2">
+                <h5 class="mb-0">Recent Items</h5>
+                <a href="addMovie.html" class="btn btn-sm btn-primary">Add New</a>
+            </div>
+            <div class="p-3">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-borderless align-middle mb-0">
+                        <thead class="text-secondary">
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Title</th>
+                                <th>Genre</th>
+                                <th>Status</th>
+                                <th>Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBody">
+                            <tr><td colspan="6" class="text-center text-muted">No items yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP RATED -->
+        <div class="glass-card">
+            <div class="px-3 py-2 border-bottom border-secondary">
+                <h5 class="mb-0">Top Rated (up to 3)</h5>
+            </div>
+            <div class="p-3">
+                <ul class="list-group" id="topRatedList">
+                    <li class="list-group-item bg-transparent text-muted text-center border-secondary">
+                        No rated items yet
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

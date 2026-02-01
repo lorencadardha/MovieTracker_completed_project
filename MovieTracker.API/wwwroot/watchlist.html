@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Watchlist • Movie & Series Tracker</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b 40%, #f7f7f9 80%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #0b7285, #4c6ef5);
+        }
+
+        .navbar-brand {
+            letter-spacing: 0.03em;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(6px);
+        }
+
+        .card {
+            border: 0;
+            border-radius: 1rem;
+        }
+
+        .card-title {
+            color: #0b7285;
+            font-weight: 600;
+        }
+
+        .table thead {
+            background: #edf2ff;
+        }
+
+        .btn-primary {
+            background: #4c6ef5;
+            border-color: #4c6ef5;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #e7f5ff;
+            color: #0b7285;
+            border-color: #0b7285;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="#">🎬 Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="nav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="watchlist.html">Watchlist</a></li>
+                    <li class="nav-item"><a class="nav-link" href="addMovie.html">Add New</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="py-4 border-bottom mb-4">
+        <div class="container">
+            <h1 class="h3 mb-1 text-dark">Watchlist &amp; Library</h1>
+            <p class="text-muted mb-0">View, filter, and update all your movies and series in one colorful place.</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        <!-- FILTERS -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Filters</h5>
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-3">
+                        <label for="filterType" class="form-label">Type</label>
+                        <select id="filterType" class="form-select">
+                            <option value="all">All</option>
+                            <option value="movie">Movies</option>
+                            <option value="series">Series</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterStatus" class="form-label">Status</label>
+                        <select id="filterStatus" class="form-select">
+                            <option value="all">All</option>
+                            <option value="planned">Planned</option>
+                            <option value="watching">Watching</option>
+                            <option value="watched">Watched</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="filterSearch" class="form-label">Title contains</label>
+                        <input id="filterSearch" type="text" class="form-control" placeholder="Search by title">
+                    </div>
+                    <div class="col-md-3 text-md-end">
+                        <button id="btnClearFilters" class="btn btn-outline-secondary mt-3 mt-md-0">Clear filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                <h5 class="mb-0 text-dark">All Items</h5>
+                <a href="addMovie.html" class="btn btn-sm btn-primary">+ Add New</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Genre</th>
+                                <th>Status</th>
+                                <th>Rating</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listBody">
+                            <tr><td colspan="7" class="text-center text-muted">No items yet</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts/watchlist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

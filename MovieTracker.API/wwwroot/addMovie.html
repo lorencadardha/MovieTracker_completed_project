@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- for special characters -->
+    <meta charset="UTF-8" />
+    <!-- Make the layout responsive on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add New • Movie & Series Tracker</title>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+
+    <style>
+            /* top level of the document */
+            :root {
+                --grad-a: #7259ff;
+                --grad-b: #13c6ff;
+                --card-bg: rgba(255,255,255,.75); /* background color for card-like elements. */
+            }
+
+
+            body {
+                background:
+                /* First radial gradient in the top-left area */
+                radial-gradient(1000px 600px at -10% -10%, #e8ebff 0%, transparent 60%),
+                /* Second radial gradient in the top-right area */
+                radial-gradient(800px 500px at 110% 10%, #d5fffb 0%, transparent 60%),
+                /* Main vertical linear gradient for the base background */
+                linear-gradient(180deg,#f6f7fb 0%, #eef1f6 100%);
+                min-height: 100vh; /* vh = viewport height;take the full height of the user's screen */
+            }
+
+            /*
+          Used for cards and alerts to create a glassmorphism effect
+        */
+            .glass {
+                background: var(--card-bg);
+                backdrop-filter: blur(10px); /* Blur whatever is behind the element */
+                -webkit-backdrop-filter: blur(10px); /* Safari support */
+                border: 1px solid rgba(255,255,255,.4);
+                box-shadow: 0 10px 35px rgba(33,37,41,.08);
+            }
+
+            /*header area at the top of the page*/
+            .hero {
+                background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+                color: #fff;
+            }
+
+                /*
+          Badges inside the hero section get a slightly transparent white background
+          and a border so they look like pills on top of the gradient.
+        */
+                .hero .badge {
+                    background: rgba(255,255,255,.18);
+                    border: 1px solid rgba(255,255,255,.25);
+                }
+
+            /* About the logo text "Tracker" in the navbar*/
+            .brand {
+                background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 800;
+            }
+
+
+            .icon-pill {
+                width: 44px;
+                height: 44px;
+                display: grid;
+                place-items: center;
+                border-radius: 12px;
+                color: #fff;
+                background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+                box-shadow: 0 8px 24px rgba(114,89,255,.35);
+            }
+
+            /* REQUIRED FIELDS:*/
+            .required::after {
+                content: " *";
+                color: #dc3545;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR SECTION:-->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold brand" href="#">Tracker</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapsible part of the navbar (links) Overview Watchlist Add New-->
+            <div id="nav" class="collapse navbar-collapse">
+                <!-- "ms-auto" pushes the list to the right side -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Link to the main dashboard / overview page -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-speedometer2 me-1"></i>Overview
+                        </a>
+                    </li>
+
+                    <!-- Link to the page where all saved movies/series are listed -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="watchlist.html">
+                            <i class="bi bi-bookmarks me-1"></i>Watchlist
+                        </a>
+                    </li>
+
+                    <!-- Link to the current page (Add New).-->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="addMovie.html">
+                            <i class="bi bi-plus-square me-1"></i>Add New
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--  "Add a Movie or Series"-->
+    <header class="hero py-5">
+        <div class="container">
+            <div class="row align-items-center g-4">
+                <div class="col-md-8">
+                    <h1 class="display-6 mb-2">Add a Movie or Series</h1>
+                </div>
+                <div class="col-md-4 d-flex justify-content-md-end">
+                    <div class="icon-pill">
+                        <i class="bi bi-film fs-4"></i> <!-- Film icon -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!--
+      MAIN CONTENT:
+      Contains the alerts
+      and the main form to add a new movie or series.
+    -->
+    <main class="container my-5">
+
+
+        <div id="alertSuccess" class="alert alert-success d-none glass"></div>
+        <div id="alertError" class="alert alert-danger d-none glass"></div>
+
+        <div class="row g-4 justify-content-center">
+            <!-- FORM CARD -->
+            <div class="col-lg-8">
+                <div class="card border-0 glass">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="icon-pill">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <div>
+                                <h2 class="h4 mb-0">New Entry</h2>
+                                <small class="text-muted">
+                                    Fill the fields below and press Save
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- MAIN FORM:-->
+                        <form id="movieForm" novalidate>
+                            <div class="row g-3">
+
+                                <!-- TYPE FIELD  -->
+                                <div class="col-md-4">
+                                    <!-- "required" class will add the red asterisk via CSS -->
+                                    <label class="form-label required" for="type">Type</label>
+                                    <select id="type" class="form-select" required>
+                                        <!-- Empty option as a placeholder -->
+                                        <option value="">Select type</option>
+                                        <!-- Movie option -->
+                                        <option value="movie">Movie</option>
+                                        <!-- Series option -->
+                                        <option value="series">Series</option>
+                                    </select>
+                                </div>
+
+                                <!-- TITLE FIELD  -->
+                                <div class="col-md-8">
+                                    <label class="form-label required" for="title">Title</label>
+                                    <input id="title" type="text" class="form-control" placeholder="e.g., Inception / Breaking Bad" required>
+                                </div>
+
+                                <!-- GENRE FIELD -->
+                                <div class="col-md-6">
+                                    <label class="form-label required" for="genre">Genre</label>
+                                    <!-- Dropdown with some predefined genres -->
+                                    <select id="genre" class="form-select" required>
+                                        <option value="">Select genre</option>
+                                        <!-- Several genre options -->
+                                        <option>Action</option>
+                                        <option>Drama</option>
+                                        <option>Comedy</option>
+                                        <option>Thriller</option>
+                                        <option>Romance</option>
+                                        <option>Fantasy</option>
+                                    </select>
+                                </div>
+
+                                <!-- STATUS FIELD (planned / watching / watched) -->
+                                <div class="col-md-6">
+                                    <label class="form-label required" for="status">Status</label>
+
+                                    <select id="status" class="form-select" required>
+                                        <option value="">Choose status</option>
+                                        <option value="planned">Planned</option>
+                                        <option value="watching">Watching</option>
+                                        <option value="watched">Watched</option>
+                                    </select>
+                                </div>
+
+                                <!-- RATING FIELD  -->
+                                <div class="col-md-4">
+                                    <label class="form-label" for="rating">Rating (1–10)</label>
+                                    <input id="rating" type="number" class="form-control" min="1" max="10" placeholder="Only if watched" disabled>
+                                </div>
+
+                                <!-- DATE FIELD  -->
+                                <div class="col-md-4">
+                                    <label class="form-label required" for="date">Date Added</label>
+                                    <input id="date" type="date" class="form-control" required>
+                                </div>
+
+                                <!-- NOTES FIELD  -->
+                                <div class="col-12">
+                                    <label class="form-label" for="notes">Notes</label>
+                                    <!--
+                                      Multiline text area for any comments, thoughts, or extra info.
+                                    -->
+                                    <textarea id="notes" class="form-control" rows="2" placeholder="Optional notes…"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- FORM ACTION BUTTONS -->
+                            <div class="d-flex gap-2 mt-4">
+                                <!--SUBMIT BUTTON: -->
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check2-circle me-1"></i>Save
+                                </button>
+
+                                <!-- RESET BUTTON:-->
+                                <button type="button" id="btnReset" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+                                </button>
+
+                                <!-- LINK THEPAGE TO LIBRARY:-->
+                                <a href="watchlist.html" class="btn btn-success ms-auto">
+                                    <i class="bi bi-collection me-1"></i>Go to Library
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+    <script src="scripts/addMovie.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
